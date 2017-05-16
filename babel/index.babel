@@ -1,0 +1,17 @@
+const w = window.innerWidth
+
+const getPercentX = x => Math.round(x / w * 360)
+
+const mouse$ = Rx.Observable
+  .fromEvent(document, 'mousemove')
+  .map(({ clientX }) => {
+    const percentX = getPercentX(clientX)
+    
+    return {
+      xStart: percentX,
+      xEnd:   percentX + 120
+    }
+  });
+
+
+RxCSS({grad: mouse$})

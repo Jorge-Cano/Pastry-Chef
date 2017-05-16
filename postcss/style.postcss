@@ -1,0 +1,51 @@
+@use postcss-nested;
+:root {
+  --font-title:  18px;
+  --grad-xStart: 280;
+  --grad-xEnd:   40;
+  --grad-start:  hsl(var(--grad-xStart), 100%, 75%);
+  --grad-end:    hsl(var(--grad-xEnd), 100%, 50%);
+}
+
+body {
+  display:         flex;
+  justify-content: center;
+  align-items:     center;
+
+  height:  100vh;
+  padding: 20px;
+
+  background: linear-gradient(135deg, var(--grad-start), var(--grad-end))
+}
+
+p {
+  counter-reset: hueStart var(--grad-xStart) hueEnd var(--grad-xEnd);
+
+  position:       relative;
+  padding:        5px 10px;
+  border:         1px solid currentColor;
+  border-radius:  var(--font-title);
+  font:           100 var(--font-title)/1 sans-serif;
+  text-align:     center;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color:          #fff;
+
+  &::before, &::after {
+    position:  absolute;
+    display:   block;
+    width:     100%;
+    padding:   5px;
+    font-size: 12px;
+    color:     #fff;
+  }
+
+  &::before {
+    content: 'hsl(' counter(hueStart) ', 100%, 75%)';
+    bottom:  100%;
+  }
+  &::after {
+    content: 'hsl(' counter(hueEnd) ', 100%, 50%)';
+    top:     100%;
+  }
+}
